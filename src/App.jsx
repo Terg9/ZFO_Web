@@ -10,6 +10,7 @@ const weatherApiKey = 'c7616da4b68205c2f3ae73df2c31d177';
 
 function App() {
   const [rates, setRates] = useState({});
+  const [weatherLoading, setWeatherLoading] = useState(false);
   const [weatherData, setWeatherData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
@@ -38,6 +39,7 @@ function App() {
         navigator.geolocation.getCurrentPosition(async position => {
           const lat = position.coords.latitude;
           const lon = position.coords.longitude;
+          setWeatherLoading(true);
           const weatherResponse = await axios.get(
             `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon
             }&appid=${weatherApiKey}`
@@ -46,6 +48,7 @@ function App() {
             throw new Error('Нет данных о погоде.');
           }
           setWeatherData(weatherResponse.data);
+          setWeatherLoading(false);
         });
 
       } catch (err) {
@@ -124,16 +127,21 @@ function App() {
             </div>
             <div id="EUR">
               Евро € — {rates.EURrate} руб.
-            </div></div>
+            </div>
+          </div>
+          {weatherLoading && <div>Погода загружается</div>}
           {weatherData && (
             <div className="weather-info">
               <div>Погода сегодня: <br></br> 🌡🌡 {(weatherData.main.temp -
                 273.15).toFixed(1)}°C ༄.° {weatherData.wind.speed} м/с ☁
-                {weatherData.clouds.all}% </div>
+                {weatherData.clouds.all}%
+              </div>
               <img className='weather-icon'
                 src={`http://openweathermap.org/img/w/${weatherData.weather[0].icon}.png`}
-                alt="Иконка погоды" /></div>
-          )}</div>
+                alt="Иконка погоды" />
+            </div>
+          )}
+        </div>
       )}
       <header>
         <h1 className='list-header'>Список задач: {todos.length}</h1>
