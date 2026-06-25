@@ -2,171 +2,385 @@
   text-align: center;
   width: 100vw;
   height: 100vh;
-  background-image: url("i.webp");
+  background: linear-gradient(180deg, 
+    #87CEEB 0%, 
+    #B0E0E6 40%, 
+    #7EC8E3 70%, 
+    #4A90D9 100%);
   background-size: cover;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Солнышко */
+#root::before {
+  content: "☀️";
+  position: absolute;
+  top: 30px;
+  right: 80px;
+  font-size: 80px;
+  animation: sunGlow 3s ease-in-out infinite;
+  filter: drop-shadow(0 0 30px rgba(255, 200, 0, 0.6));
+  z-index: 0;
+}
+
+@keyframes sunGlow {
+  0%, 100% {
+    transform: scale(1) rotate(0deg);
+    filter: drop-shadow(0 0 30px rgba(255, 200, 0, 0.6));
+  }
+  50% {
+    transform: scale(1.1) rotate(10deg);
+    filter: drop-shadow(0 0 50px rgba(255, 200, 0, 0.9));
+  }
+}
+
+/* Облака - увеличенные */
+#root::after {
+  content: "☁️☁️☁️☁️☁️";
+  position: absolute;
+  top: 60px;
+  left: 20px;
+  font-size: 100px;
+  opacity: 0.7;
+  animation: cloudsMove 25s linear infinite;
+  letter-spacing: 120px;
+  white-space: nowrap;
+  z-index: 0;
+  filter: drop-shadow(0 10px 30px rgba(255, 255, 255, 0.2));
+}
+
+/* Второй слой облаков - ещё больше и медленнее */
+.clouds-layer {
+  position: absolute;
+  top: 120px;
+  left: -100px;
+  font-size: 120px;
+  opacity: 0.4;
+  animation: cloudsMove 35s linear infinite reverse;
+  letter-spacing: 150px;
+  white-space: nowrap;
+  z-index: 0;
+  pointer-events: none;
+}
+
+@keyframes cloudsMove {
+  0% {
+    transform: translateX(-300px);
+  }
+  100% {
+    transform: translateX(calc(100vw + 300px));
+  }
 }
 
 /* Стили блока info */
 .info {
-  /* Используем гибкую разметку Flexbox для выравнивания элементов внутри
-контейнера */
   display: flex;
-  /* Горизонтальное выравнивание содержимого по центру */
   justify-content: center;
-  /* Высоту устанавливаем равной 100 пикселей */
   height: 100px;
-  /* Выравнивание текущего элемента вертикально по центру родительского
-контейнера */
   align-self: center;
+  background: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(10px);
+  border-radius: 15px;
+  padding: 10px 20px;
+  margin-top: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  position: relative;
+  z-index: 1;
 }
 
 /* Блок money */
 .money {
-  /* Цвет текста белый (#ffffff) */
   color: #fff;
-  /* Обычная рамка вокруг элемента */
-  border: solid;
-  /* Скругляем углы рамки на 5 пикселей */
-  border-radius: 5px;
-  /* Элемент занимает 80% высоты родителя */
+  border: none;
+  border-radius: 10px;
   height: 80%;
-  /* Плавающий элемент слева строки */
   float: inline-start;
-  /* Внутренний отступ сверху 2%, справа 1%, снизу 0% */
   padding: 2% 1% 0%;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+  font-weight: 500;
 }
 
 /* Информация о погоде */
 .weather-info {
-  /* Белый цвет текста */
   color: #fff;
-  /* Рамка обычного типа */
-  border: solid;
-  /* Скругленные уголки рамки */
-  border-radius: 5px;
-  /* Высота блока составляет 80% от размера родителя */
+  border: none;
+  border-radius: 10px;
   height: 80%;
-  /* Позиционируем элемент плавающим справа строки */
   float: inline-end;
-  /* Внешнее пространство внутри элемента: верх/снизу/слева/справа = 1% */
   padding: 1%;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+  font-weight: 500;
 }
 
-/* Оформление элемента todo */
+/* Оформление элемента todo - реалистичные карточки */
 .item-todo {
-  /* Отступы: вверху 14px, слева/справа автоцентрирование, внизу тоже 15px */
-  padding: 14px;
-  margin: 0 auto;
-  /* Текст выровнен по левому краю */
+  padding: 16px 24px;
+  margin: 10px auto;
   text-align: left;
-  /* Верхний внешний отступ равен 15px */
-  margin-top: 15px;
-  /* Фон выполнен градиентом слева направо от фиолетового цвета к синему */
-  background: linear-gradient(90deg,
-      rgba(93, 12, 255, 1) 0%,
-      #2ea4db 100%);
-  /* Белые буквы */
-  color: #fff;
-  /* Без границы */
-  border: none;
-  /* Закруглённые края на 5 пикселей */
-  border-radius: 5px;
-  /* Курсор меняется на 'руку' при наведении мыши */
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  border-radius: 16px;
   cursor: pointer;
-  /* Максимальная ширина элемента ограничена 60% ширины экрана */
   max-width: 60%;
+  width: 60%;
+  color: #fff;
+  box-shadow: 
+    0 8px 32px rgba(0, 0, 0, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.3);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.item-todo:hover {
+  transform: translateY(-2px) scale(1.02);
+  box-shadow: 
+    0 12px 40px rgba(0, 0, 0, 0.15),
+    inset 0 1px 0 rgba(255, 255, 255, 0.4);
+  background: rgba(255, 255, 255, 0.25);
 }
 
 /* Стиль текста в блоке item-todo */
 .item-todo .item-text {
-  /* Элемент размещается на одной строке */
-  display: inline-block;
-  /* Изменяется вид курсора при наведении */
+  font-size: 16px;
+  font-weight: 500;
+  padding: 2px 8px;
+  border-radius: 6px;
+  transition: all 0.2s ease;
+  flex: 1;
   cursor: pointer;
+}
+
+/* Выполненная задача - серая плашка */
+.item-todo.completed {
+  background: rgba(128, 128, 128, 0.3);
+  border-color: rgba(128, 128, 128, 0.4);
+  opacity: 0.8;
+}
+
+.item-todo.completed .item-text {
+  color: #b0b0b0;
+}
+
+.item-todo.completed:hover {
+  background: rgba(128, 128, 128, 0.4);
+}
+
+/* Иконка удаления - по центру */
+.item-todo .item-delete {
+  cursor: pointer;
+  font-size: 20px;
+  font-weight: 700;
+  width: 30px;
+  height: 30px;
+  min-width: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.1);
+  transition: all 0.3s ease;
+  color: #fff;
+  margin-left: 12px;
+  flex-shrink: 0;
+  line-height: 1;
+  padding: 0;
+}
+
+.item-todo .item-delete:hover {
+  background: rgba(255, 68, 68, 0.3);
+  color: #ff4444;
 }
 
 /* Иконка погоды */
 .weather-info .weather-icon {
-  /* Размещаем иконку на одной строке */
   display: inline-block;
-  /* Меняем тип курсора на 'руку' при наведении */
   cursor: pointer;
-  /* Обтекаемый контент располагается справа */
   float: right;
-  /* Размер шрифта устанавливается равным 22px */
   font-size: 22px;
-  /* Позиция относительно текущего положения смещена вправо на -4px и вниз на 5px
-*/
   position: relative;
   left: -4px;
   bottom: 5px;
+  filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.2));
 }
 
-/* Заголовок списка */
+/* Заголовок списка - без лишних элементов */
 .list-header {
-  /* Цвет заголовка aliceblue (светло-голубой оттенок) */
-  color: aliceblue;
-  /* Размер шрифта заголовка 20px */
-  size: 20px;
-  /* Расстояние сверху равно 1% */
-  padding-top: 1%;
-}
-
-/* Поле ввода */
-input {
-  /* Внутренние отступы поля ввода */
-  padding: 14px 32px 14px 16px;
-  /* Округлые углы формы */
-  border-radius: 4px 0 0 4px;
-  /* Толщина рамки 3px, цвет фиолетовый */
-  border: 3px solid #5d0cff;
-  /* Убираем выделение при фокусировке */
-  outline: none;
-  /* Белый фон */
-  background: white;
-  color: grey;
-}
-
-/* Кнопка */
-button {
-  /* Внутренние отступы кнопки */
-  padding: 16px 7px;
-  /* Нет границ */
-  border: none;
-  /* Углы скруглены */
-  border-radius: 0 4px 4px 0;
-  /* Курсор меняет форму на 'руку' при наведении */
-  cursor: pointer;
-  /* Удаляет подчеркивание и выделенный контур при клике */
-  outline: none;
-  /* Градиент фона от тёмно-фиолетового к светло-синему цвету */
-  background: linear-gradient(90deg,
-      rgba(93, 12, 255, 1) 0%,
-      #2ea4db 100%);
-  /* Белые буквы */
   color: #fff;
-  /* Первая буква каждого слова пишется заглавной */
-  text-transform: capitalize;
-}
-
-/* Иконка удаления */
-.item-todo .item-delete {
-  /* Расположены на одной строке */
-  display: inline-block;
-  /* Вид курсора меняется на 'руку' при наведении */
-  cursor: pointer;
-  /* Объект находится справа */
-  float: right;
-  /* Шрифт размером 22px */
-  font-size: 22px;
-  /* Позиция смещения относительно исходного места */
+  font-size: 28px;
+  padding-top: 1%;
+  text-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+  font-weight: 600;
+  letter-spacing: 1px;
   position: relative;
-  left: -4px;
-  bottom: 5px;
+  z-index: 1;
 }
 
-/* Класс strike применяется к зачёркнутому тексту */
-.strike {
-  /* Добавляется зачёркивание текста */
-  text-decoration: line-through;
+/* Форма ввода - закреплена внизу с реалистичным видом */
+form {
+  position: fixed;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 20px 30px;
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(20px);
+  border-top: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 20px 20px 0 0;
+  width: 80%;
+  max-width: 600px;
+  box-shadow: 0 -10px 40px rgba(0, 0, 0, 0.1);
+  z-index: 10;
+}
+
+/* Поле ввода - реалистичное */
+input {
+  padding: 14px 24px;
+  border-radius: 12px 0 0 12px;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  outline: none;
+  background: rgba(255, 255, 255, 0.9);
+  backdrop-filter: blur(10px);
+  color: #333;
+  width: 65%;
+  font-size: 16px;
+  transition: all 0.3s ease;
+  box-shadow: inset 0 2px 10px rgba(0, 0, 0, 0.05);
+}
+
+input:focus {
+  border-color: rgba(255, 255, 255, 0.6);
+  box-shadow: 
+    0 0 0 3px rgba(255, 255, 255, 0.2),
+    inset 0 2px 10px rgba(0, 0, 0, 0.05);
+  transform: scale(1.02);
+}
+
+input::placeholder {
+  color: #999;
+  font-weight: 300;
+}
+
+/* Кнопка - реалистичная с 3D эффектом */
+button {
+  padding: 14px 28px;
+  border: none;
+  border-radius: 0 12px 12px 0;
+  cursor: pointer;
+  outline: none;
+  background: linear-gradient(180deg, 
+    #667eea 0%, 
+    #764ba2 100%);
+  color: #fff;
+  text-transform: capitalize;
+  font-size: 16px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  box-shadow: 
+    0 4px 15px rgba(102, 126, 234, 0.4),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2);
+  transition: all 0.2s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: left 0.5s ease;
+}
+
+button:hover {
+  transform: translateY(-2px) scale(1.02);
+  box-shadow: 
+    0 6px 25px rgba(102, 126, 234, 0.5),
+    inset 0 1px 0 rgba(255, 255, 255, 0.3);
+}
+
+button:hover::before {
+  left: 100%;
+}
+
+button:active {
+  transform: translateY(0px) scale(0.98);
+  box-shadow: 0 2px 10px rgba(102, 126, 234, 0.3);
+}
+
+/* Стили для скролла */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 10px;
+  backdrop-filter: blur(10px);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.5);
+}
+
+/* Адаптивность */
+@media (max-width: 768px) {
+  #root::before {
+    font-size: 50px;
+    top: 20px;
+    right: 30px;
+  }
+  
+  #root::after {
+    font-size: 60px;
+    top: 40px;
+    letter-spacing: 60px;
+  }
+  
+  .clouds-layer {
+    font-size: 70px;
+    top: 80px;
+    letter-spacing: 80px;
+  }
+  
+  .item-todo {
+    max-width: 85%;
+    width: 85%;
+    padding: 14px 18px;
+  }
+  
+  form {
+    width: 92%;
+    padding: 15px 20px;
+    border-radius: 15px 15px 0 0;
+  }
+  
+  input {
+    padding: 12px 16px;
+    width: 60%;
+    font-size: 14px;
+  }
+  
+  button {
+    padding: 12px 20px;
+    font-size: 14px;
+  }
+  
+  .list-header {
+    font-size: 22px;
+  }
 }
