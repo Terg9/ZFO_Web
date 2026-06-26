@@ -1,0 +1,14 @@
+FROM node:24-slim
+
+WORKDIR /app
+
+# Используем http вместо https (обход SSL проблем)
+RUN npm config set registry http://registry.npmmirror.com && \
+    npm config set strict-ssl false
+
+COPY package*.json ./
+
+# Простая установка
+RUN npm install
+
+COPY . .
